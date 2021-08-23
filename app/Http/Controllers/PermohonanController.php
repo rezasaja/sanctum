@@ -37,7 +37,22 @@ class PermohonanController extends Controller
             'nilai_cicilan' => 'required'
         ]);
 
-        return Permohonan::create($request->all());
+        $permohonan = new Permohonan;
+        $permohonan->nomor_handphone = $request->nomor_handphone;
+        $permohonan->nama_pemohon = $request->nama_pemohon;
+        $permohonan->item = $request->item;
+        $permohonan->nilai_harga_item = $request->nilai_harga_item;
+        $permohonan->nilai_uang_muka = $request->nilai_uang_muka;
+        $permohonan->nilai_keuntungan = $request->nilai_keuntungan;
+        $permohonan->nilai_kredit = $request->nilai_kredit;
+        $permohonan->masa = $request->masa;
+        $permohonan->nilai_cicilan = $request->nilai_cicilan;
+        $permohonan->save();
+
+        return response()->json([
+            'message' => 'Data Permohonan Tersimpan',
+            'Data' => $permohonan
+        ], 201);
     }
 
     /**
