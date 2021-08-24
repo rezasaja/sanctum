@@ -14,7 +14,9 @@ class PermohonanController extends Controller
      */
     public function index()
     {
-        return Permohonan::all();
+        // return Permohonan::all();
+        $permohonan = Permohonan::paginate(5);
+        return $permohonan;
     }
 
     /**
@@ -36,6 +38,8 @@ class PermohonanController extends Controller
             'masa' => 'required',
             'nilai_cicilan' => 'required'
         ]);
+
+        // return Permohonan::create($request->all());
 
         $permohonan = new Permohonan;
         $permohonan->nomor_handphone = $request->nomor_handphone;
@@ -63,7 +67,9 @@ class PermohonanController extends Controller
      */
     public function show($id)
     {
-        return Permohonan::find($id);
+        // return Permohonan::find($id);
+        $permohonan = Permohonan::find($id);
+        return $permohonan;
     }
 
     /**
