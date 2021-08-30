@@ -27,16 +27,17 @@ Route::post('login', [AuthController::class, 'login']);
 
 Route::middleware('auth:sanctum')->group(function(){
     Route::resource('permohonan', PermohonanController::class);
-    Route::get('permohonan/search/{nama_pemohon}', [PermohonanController::class, 'search']);
+    // Route::get('permohonan/search/{nama_pemohon}', [PermohonanController::class, 'search']);
     Route::post('logout', [AuthController::class, 'logout']);
+    Route::get('nasabah/list', [NasabahController::class, 'list']);
     Route::resource('nasabah', NasabahController::class);
-    Route::get('nasabah/search/{nama_depan}', [NasabahController::class, 'search']);
+    // Route::get('nasabah/search/{nama_depan}', [NasabahController::class, 'search']);
     Route::get('item/list', [ItemController::class, 'list']);
     Route::resource('item', ItemController::class);
-    Route::get('item/search/{item}', [ItemController::class, 'search']);
+    // Route::get('item/search/{item}', [ItemController::class, 'search']);
     Route::resource('transaksi', TransaksiController::class);
-    Route::get('transaksi/search/{pembayaran_metode}', [TransaksiController::class, 'search']);
+    // Route::get('transaksi/search/{pembayaran_metode}', [TransaksiController::class, 'search']);
     Route::get('investasi/list', [InvestasiController::class, 'list']);
     Route::resource('investasi', InvestasiController::class);
-    Route::get('investasi/search/{jenis}', [InvestasiController::class, 'search']);
+    // Route::get('investasi/search/{jenis}', [InvestasiController::class, 'search']);
 });
