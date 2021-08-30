@@ -1,70 +1,44 @@
 <?php
 
 namespace App\Http\Controllers;
-use App\Models\Investasi;
 
+use App\Http\Resources\InvestasiResource;
+use App\Http\Resources\InvestasiCollection;
+use Facades\Services\InvestasiService as Investasi;
 use Illuminate\Http\Request;
 
 class InvestasiController extends Controller
 {
     public function index()
     {
-        $investasi = Investasi::paginate(5);
-        return $investasi;
+        $investasi = Investasi::getPaginate();
+        return new InvestasiCollection($investasi);
+    }
+
+    public function list()
+    {
+        $investasi = Investasi::getAll();
+        return new InvestasiCollection($investasi);
     }
 
     public function store()
     {
-        $investasi = $this->save();
-        return $investasi;
+        return Investasi::save();
     }
 
-    public function update($id)
+    public function update($uuid)
     {
-        $investasi = $this->save($id);
-        return $investasi;
+        return Investasi::save($uuid);
     }
 
-    public function save($id = null)
+    public function destroy($uuid)
     {
-        if($id){
-            $investasi = Investasi::find($id);
-        }else{
-            $investasi = new Investasi;
-        }
-        $investasi->jenis = request()->jenis;
-        $investasi->nomor = request()->nomor;
-        $investasi->user_id = request()->user_id;
-        $investasi->nama_depan = request()->nama_depan;
-        $investasi->nama_belakang = request()->nama_belakang;
-        $investasi->nama_instansi = request()->nama_instansi;
-        $investasi->tanggal_pembukaan = request()->tanggal_pembukaan;
-        $investasi->saldo = request()->saldo;
-        $investasi->aktif = request()->aktif;
-        $investasi->user_created = request()->user_created;
-        $investasi->user_updated = request()->user_updated;
-        $investasi->user_deleted = request()->user_deleted;
-        $investasi->save();
-
-        return response()->json([
-            'message' => 'Data Di Simpan',
-            'date' => $investasi
-        ], 201);
+        return Investasi::delete($uuid);
     }
 
-    public function destroy($id)
+    public function show($uuid)
     {
-        $investasi = Investasi::find($id);
-        $investasi->delete();
-        return response([
-            'message' => 'Data Sudah Di Hapus'
-        ]);
+        return Investasi::find($uuid);
     }
 
-    public function search($jenis)
-    {
-        $investasi = Investasi::where('jenis', 'like', '%'.$jenis.'%')->get();
-        return $investasi;
-
-    }
 }

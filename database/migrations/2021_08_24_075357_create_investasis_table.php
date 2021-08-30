@@ -15,6 +15,7 @@ class CreateInvestasisTable extends Migration
     {
         Schema::create('investasis', function (Blueprint $table) {
             $table->id();
+            $table->uuid('uuid');
             $table->string('jenis')->default('individu');
             $table->string('nomor');
             $table->bigInteger('user_id');
@@ -29,6 +30,7 @@ class CreateInvestasisTable extends Migration
             $table->string('user_updated')->nullable();
             $table->string('user_deleted')->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

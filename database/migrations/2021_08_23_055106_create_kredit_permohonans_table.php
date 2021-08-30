@@ -15,6 +15,7 @@ class CreateKreditPermohonansTable extends Migration
     {
         Schema::create('permohonan', function (Blueprint $table) {
             $table->id();
+            $table->uuid('uuid');
             $table->bigInteger('user_id')->nullable();
             $table->string('nomor_handphone');
             $table->string('nama_pemohon');
@@ -28,6 +29,7 @@ class CreateKreditPermohonansTable extends Migration
             $table->tinyInteger('status')->default(0);
             $table->text('catatan')->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

@@ -15,6 +15,7 @@ class CreateNasabahsTable extends Migration
     {
         Schema::create('nasabah', function (Blueprint $table) {
             $table->id();
+            $table->uuid('uuid');
             $table->bigInteger('user_id')->nullable();
             $table->string('jenis')->default('Individu');
             $table->string('nomor');
@@ -32,6 +33,7 @@ class CreateNasabahsTable extends Migration
             $table->string('nomor_kontak')->nullable();
             $table->tinyInteger('aktif')->default(1);
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

@@ -15,6 +15,7 @@ class CreateItemsTable extends Migration
     {
         Schema::create('item', function (Blueprint $table) {
             $table->id();
+            $table->uuid('uuid');
             $table->bigInteger('kredit_nasabah_id');
             $table->string('item');
             $table->date('tanggal');
@@ -33,6 +34,7 @@ class CreateItemsTable extends Migration
             $table->bigInteger('user_id')->nullable();
             $table->bigInteger('agen_id')->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

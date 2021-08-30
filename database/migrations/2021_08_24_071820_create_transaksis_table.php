@@ -15,6 +15,7 @@ class CreateTransaksisTable extends Migration
     {
         Schema::create('transaksi', function (Blueprint $table) {
             $table->id();
+            $table->uuid('uuid');
             $table->bigInteger('kredit_item_id');
             $table->integer('pembayaran');
             $table->string('pembayaran_metode');
@@ -25,6 +26,7 @@ class CreateTransaksisTable extends Migration
             $table->text('catatan')->nullable();
             $table->integer('user_id')->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

@@ -35,6 +35,7 @@ Route::middleware('auth:sanctum')->group(function(){
     Route::get('item/search/{item}', [ItemController::class, 'search']);
     Route::resource('transaksi', TransaksiController::class);
     Route::get('transaksi/search/{pembayaran_metode}', [TransaksiController::class, 'search']);
+    Route::get('investasi/list', [InvestasiController::class, 'list']);
     Route::resource('investasi', InvestasiController::class);
     Route::get('investasi/search/{jenis}', [InvestasiController::class, 'search']);
 });
