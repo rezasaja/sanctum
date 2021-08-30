@@ -3,67 +3,40 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Item;
+use App\Http\Resources\ItemResources;
+use App\Http\Resources\ItemCollection;
+use Facades\Services\ItemService as Item;
 class ItemController extends Controller
 {
     public function index()
     {
-        $item = Item::paginate(5);
-        return $item;
+        $item = Item::getPaginate();
+        return new ItemCollection($item);
     }
 
-    public function store(Request $request)
+    public function list()
     {
-        $item = new Item;
-        $item->kredit_nasabah_id = $request->kredit_nasabah_id;
-        $item->item = $request->item;
-        $item->tanggal = $request->tanggal;
-        $item->tanggal_bayar = $request->tanggal_bayar;
-        $item->nilai_harga_barang = $request->nilai_harga_barang;
-        $item->nilai_uang_muka = $request->nilai_uang_muka;
-        $item->nilai_keuntungan = $request->nilai_keuntungan;
-        $item->nilai_kredit_item = $request->nilai_kredit_item;
-        $item->pilihan = $request->pilihan;
-        $item->masa = $request->masa;
-        $item->nilai_cicilan = $request->nilai_cicilan;
-        $item->tanggal_jatuh_tempo = $request->tanggal_jatuh_tempo;
-        $item->outstanding_kredit = $request->outstanding_kredit;
-        $item->outstanding_masa = $request->outstanding_masa;
-        $item->status = $request->status;
-        $item->user_id = $request->user_id;
-        $item->agen_id = $request->agen_id;
-        $item->save();
-
-        return response()->json([
-            'message' => 'Item Berhasil Disimpan',
-            'Data' => $item
-        ]);
+        $item = Item::getAll();
+        return new ItemCollection($item);
     }
 
-    public function update(Request $request, $id)
+    public function store()
     {
-        $item = Item::find($id);
-        $item->update($request->all());
-        return $item;
+       return Item::save();
     }
 
-    public function destroy($id)
+    public function update($uuid)
     {
-        $item = Item::destroy($id);
-        return response()->json([
-            'message' => 'Berhasil Di Hapus'
-        ]);
+        return Item::save($uuid);
     }
 
-    public function search($item)
+    public function destroy($uuid)
     {
-        $item = Item::where('item', 'like', '%'.$item.'%')->get();
-        return $item;
+        return Item::delete($uuid);
     }
 
-    public function show($id)
+    public function show($uuid)
     {
-        $item = Item::Find($id);
-        return $item;
+       return Item::find($uuid);
     }
 }

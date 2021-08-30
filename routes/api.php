@@ -31,6 +31,7 @@ Route::middleware('auth:sanctum')->group(function(){
     Route::post('logout', [AuthController::class, 'logout']);
     Route::resource('nasabah', NasabahController::class);
     Route::get('nasabah/search/{nama_depan}', [NasabahController::class, 'search']);
+    Route::get('item/list', [ItemController::class, 'list']);
     Route::resource('item', ItemController::class);
     Route::get('item/search/{item}', [ItemController::class, 'search']);
     Route::resource('transaksi', TransaksiController::class);
